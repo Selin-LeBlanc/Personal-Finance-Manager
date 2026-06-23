@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Enum for account classifications in the general ledger
+/// Used to categorize accounts following accounting standards
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  INCOME
+  EXPENSE
+}
+
+/// Enum for the normal balance side of an account
+/// DEBIT: Account balance increases with debit entries
+/// CREDIT: Account balance increases with credit entries
+enum NormalBalance {
+  DEBIT
+  CREDIT
+}
+
+/// Enum for the status of journal entries
+/// DRAFT: Entry is being prepared and not yet finalized
+/// POSTED: Entry has been finalized and recorded
+/// REVERSED: Entry has been reversed (negated by another entry)
+enum JournalEntryStatus {
+  DRAFT
+  POSTED
+  REVERSED
+}
+
+/// Enum for types of planned entries
+/// BILL: Planned expense or bill payment
+/// INCOME: Planned income or revenue
+enum PlannedEntryType {
+  BILL
+  INCOME
+}
+
+/// Represents a general ledger account
+/// Accounts are the foundation of double-entry bookkeeping, tracking all financial transactions in the system
+model Account {
+  id             String        @id @default(uuid())
+  code           String        @unique
+  name           String
+  type           AccountType
+  subtype        String?
+  normalBalance  NormalBalance
+  isActive       Boolean       @default(true)
+
+  journalLines   JournalLine[]
+  budgets        Budget[]
+  plannedEntries PlannedEntry[]
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+/// Represents a journal entry (financial transaction)
+/// Each journal entry contains one or more debit and credit line items
+/// that maintain the accounting equation (Assets = Liabilities + Equity)
+model JournalEntry {
+  id           String             @id @default(uuid())
+  entryDate    DateTime
+  description  String
+  status       JournalEntryStatus @default(DRAFT)
+  sourceType   String?
+
+  reversalOfId String?
+  reversedById String?
+
+  reversalOf   JournalEntry? @relation("EntryReversal", fields: [reversalOfId], references: [id])
+  reversedBy   JournalEntry? @relation("EntryReversal")
+
+  lines        JournalLine[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// Represents a line item in a journal entry
+/// Each line item represents a debit or credit to a specific account
+/// In double-entry bookkeeping, each entry contains at least one debit and one credit
+model JournalLine {
+  id             String       @id @default(uuid())
+
+  journalEntryId String
+  journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id], onDelete: Restrict)
+
+  accountId      String
+  account        Account      @relation(fields: [accountId], references: [id], onDelete: Restrict)
+
+  reportingCategoryId String?
+  reportingCategory   ReportingCategory? @relation(fields: [reportingCategoryId], references: [id], onDelete: SetNull)
+
+  projectId      String?
+  project        Project?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  debit          Decimal      @default(0) @db.Decimal(12, 2)
+  credit         Decimal      @default(0) @db.Decimal(12, 2)
+  memo           String?
+
+  createdAt      DateTime     @default(now())
+}
+
+/// Represents a reporting category for financial statements
+/// Used to organize journal lines and budgets for consolidated reporting
+/// Independent from the chart of accounts structure
+model ReportingCategory {
+  id             String         @id @default(uuid())
+  name           String
+  type           AccountType
+  isActive       Boolean        @default(true)
+
+  journalLines   JournalLine[]
+  budgets        Budget[]
+  plannedEntries PlannedEntry[]
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+/// Represents a project for cost tracking and allocation
+/// Projects allow you to track expenses and income related to specific initiatives
+/// All costs and revenues can be allocated to a project for analysis
+model Project {
+  id             String        @id @default(uuid())
+  name           String
+  description    String?
+  startDate      DateTime?
+  endDate        DateTime?
+  isActive       Boolean       @default(true)
+
+  journalLines   JournalLine[]
+  plannedEntries PlannedEntry[]
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+/// Represents a budget for an account or reporting category
+/// Budgets are used for planning and comparing against actual spending
+model Budget {
+  id         String   @id @default(uuid())
+  month      String
+
+  accountId  String?
+  account    Account? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  reportingCategoryId String?
+  reportingCategory   ReportingCategory? @relation(fields: [reportingCategoryId], references: [id], onDelete: SetNull)
+
+  amount     Decimal  @db.Decimal(12, 2)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+/// Represents a planned income or expense
+/// Used for forecasting and tracking upcoming transactions
+/// Can be set to recur automatically on a defined schedule
+model PlannedEntry {
+  id          String           @id @default(uuid())
+  type        PlannedEntryType
+  description String
+  amount      Decimal          @db.Decimal(12, 2)
+  dueDate     DateTime
+  isRecurring Boolean          @default(false)
+  recurrence  String?
+
+  accountId   String?
+  account     Account?         @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  reportingCategoryId String?
+  reportingCategory   ReportingCategory? @relation(fields: [reportingCategoryId], references: [id], onDelete: SetNull)
+
+  projectId   String?
+  project     Project?         @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+/// Represents a fiscal period for accounting purposes
+/// Used to define accounting periods (months, quarters, years)
+/// Periods can be marked as closed to prevent further modifications
+model FiscalPeriod {
+  id        String   @id @default(uuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  isClosed  Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

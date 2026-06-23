@@ -14,15 +14,6 @@ https://charterediia.org/content-hub/blogs/use-of-the-five-cs-in-communication/
 
 Every debit entry has a corresponding credit entry, helping keep the balance sheet balanced.
 Assets=Liabilities+Equity
-​
-
-## Types of Business Accounts
-
-Assets
-Liabilities
-Equities
-Income
-Expenses
 
 ## Importance
 
@@ -43,6 +34,14 @@ Full Disclosure Principle: Companies disclose all relevant financial information
 Cost Principle: Businesses record assets at their historical cost rather than current market value, providing a reliable and objective basis for financial reporting.
 
 Conservatism Principle: Accountants exercise caution when faced with uncertainty, ensuring they do not understate liabilities and expenses or overstate assets and revenues.
+
+## Types of Business Accounts
+
+Assets
+Liabilities
+Equities
+Income
+Expenses
 
 ## Canadian GAAp vs IFRS
 
