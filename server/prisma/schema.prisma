@@ -28,7 +28,7 @@ enum NormalBalance {
 /// Enum for the status of journal entries
 /// DRAFT: Entry is being prepared and not yet finalized
 /// POSTED: Entry has been finalized and recorded
-/// REVERSED: Entry has been reversed (negated by another entry)
+/// REVERSED: I may not have time to implement this, reversal can be done as a manual entry   
 enum JournalEntryStatus {
   DRAFT
   POSTED
@@ -65,6 +65,7 @@ model Account {
   parentAccount Account? @relation("AccountHierarchy", fields: [parentAccountId], references: [id], onDelete: Restrict)
 
   /// Child accounts under this account.
+  /// Not limiting journal entries to child accounts for now, 
   childAccounts Account[] @relation("AccountHierarchy")
 
   journalLines   JournalLine[]
@@ -73,7 +74,10 @@ model Account {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  /// Ideally, I would include createdBy and updatedBy in the schema. But we are not doing authorization&authentication now.
 }
+
+
 
 /// Represents a journal entry (financial transaction)
 /// Each journal entry contains one or more debit and credit line items
