@@ -197,6 +197,242 @@ async function main() {
     skipDuplicates: true,
   });
   console.log("Liabilities seeded");
+
+  //EQUITY
+  await prisma.account.createMany({
+    data: [
+      {
+        code: "30000",
+        name: "Estate Equity",
+        type: "EQUITY",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+
+      {
+        code: "31000",
+        name: "Original Estate Value",
+        type: "EQUITY",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+      {
+        code: "31100",
+        name: "Value at Date of Death",
+        type: "EQUITY",
+        normalBalance: "CREDIT",
+        subtype: "opening_estate_value",
+      },
+
+      {
+        code: "32000",
+        name: "Capital Adjustments",
+        type: "EQUITY",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+      {
+        code: "32100",
+        name: "Capital Gains",
+        type: "EQUITY",
+        normalBalance: "CREDIT",
+        subtype: "capital_gain",
+      },
+      {
+        code: "32200",
+        name: "Capital Losses",
+        type: "EQUITY",
+        normalBalance: "DEBIT",
+        subtype: "capital_loss",
+      },
+
+      {
+        code: "33000",
+        name: "Beneficiary Distributions",
+        type: "EQUITY",
+        normalBalance: "DEBIT",
+        subtype: "summary",
+      },
+      {
+        code: "33100",
+        name: "Specific Bequests",
+        type: "EQUITY",
+        normalBalance: "DEBIT",
+        subtype: "distribution",
+      },
+      {
+        code: "33200",
+        name: "Interim Distributions",
+        type: "EQUITY",
+        normalBalance: "DEBIT",
+        subtype: "distribution",
+      },
+      {
+        code: "33300",
+        name: "Final / Residuary Distributions",
+        type: "EQUITY",
+        normalBalance: "DEBIT",
+        subtype: "distribution",
+      },
+    ],
+    skipDuplicates: true,
+  });
+  console.log("Equity seeded");
+
+  //INCOME
+  await prisma.account.createMany({
+    data: [
+      {
+        code: "40000",
+        name: "Revenue",
+        type: "INCOME",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+
+      {
+        code: "41000",
+        name: "Investment & Estate Income",
+        type: "INCOME",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+      {
+        code: "41100",
+        name: "Interest Earned",
+        type: "INCOME",
+        normalBalance: "CREDIT",
+        subtype: "interest_income",
+      },
+      {
+        code: "41200",
+        name: "Dividend Income",
+        type: "INCOME",
+        normalBalance: "CREDIT",
+        subtype: "dividend_income",
+      },
+      {
+        code: "41300",
+        name: "Rental Income",
+        type: "INCOME",
+        normalBalance: "CREDIT",
+        subtype: "rental_income",
+      },
+    ],
+    skipDuplicates: true,
+  });
+  console.log("Revenue seeded");
+
+  //EXPENSES
+  await prisma.account.createMany({
+    data: [
+      {
+        code: "50000",
+        name: "Expenses",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "summary",
+      },
+
+      {
+        code: "51000",
+        name: "Property Maintenance",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "summary",
+      },
+      {
+        code: "51100",
+        name: "Property Taxes",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "property_tax",
+      },
+      {
+        code: "51200",
+        name: "Property Insurance",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "insurance",
+      },
+      {
+        code: "51300",
+        name: "Utilities",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "utilities",
+      },
+      {
+        code: "51400",
+        name: "Repairs & Cleaning",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "repairs_cleaning",
+      },
+
+      {
+        code: "52000",
+        name: "Professional Fees",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "summary",
+      },
+      {
+        code: "52100",
+        name: "Legal Fees",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "legal_fees",
+      },
+      {
+        code: "52200",
+        name: "Accounting Fees",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "accounting_fees",
+      },
+      {
+        code: "52300",
+        name: "Appraisal Fees",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "appraisal_fees",
+      },
+
+      {
+        code: "53000",
+        name: "Administration",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "summary",
+      },
+      {
+        code: "53100",
+        name: "Executor Compensation",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "executor_compensation",
+      },
+      {
+        code: "53200",
+        name: "Postage / Courier / Banking",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "administration_cost",
+      },
+      {
+        code: "53300",
+        name: "Executor Care & Management",
+        type: "EXPENSE",
+        normalBalance: "DEBIT",
+        subtype: "executor_management",
+      },
+    ],
+    skipDuplicates: true,
+  });
+  console.log("Expenses seeded");
+
+  console.log("Estate chart of accounts seeded successfully.");
 }
 
 main()
