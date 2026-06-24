@@ -9,6 +9,7 @@ async function main() {
 
   // I'm in between create and upsert. For the purpose of simplicity, I will assume the seed file will run only once and will not be run multiple times.
 
+  //ASSETS
   await prisma.account.createMany({
     data: [
       {
@@ -123,6 +124,79 @@ async function main() {
     skipDuplicates: true,
   });
   console.log("Assets seeded");
+
+  //LIABILITIES
+  await prisma.account.createMany({
+    data: [
+      {
+        code: "20000",
+        name: "Liabilities",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+
+      {
+        code: "21000",
+        name: "Deceased Debts",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+      {
+        code: "21100",
+        name: "Credit Card Debt",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "debt",
+      },
+      {
+        code: "21200",
+        name: "Mortgages Payable",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "mortgage",
+      },
+      {
+        code: "21300",
+        name: "Bank Loans",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "loan",
+      },
+
+      {
+        code: "22000",
+        name: "Administration Liabilities",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "summary",
+      },
+      {
+        code: "22100",
+        name: "Funeral Expenses Payable",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "payable",
+      },
+      {
+        code: "22200",
+        name: "Income Tax Payable",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "tax_payable",
+      },
+      {
+        code: "22300",
+        name: "Probate Fees Payable",
+        type: "LIABILITY",
+        normalBalance: "CREDIT",
+        subtype: "probate_payable",
+      },
+    ],
+    skipDuplicates: true,
+  });
+  console.log("Liabilities seeded");
 }
 
 main()
