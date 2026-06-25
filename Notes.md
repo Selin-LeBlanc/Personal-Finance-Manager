@@ -56,3 +56,10 @@ Used by private enterprises in Canada.
 Simplified rules compared to IFRS, reducing complexity for smaller businesses.
 Focuses on cost-effective reporting for entities without external investors.
 Both frameworks follow GAAP principles, with IFRS providing more detail and complexity, while ASPE suits smaller-scale operations
+
+Setup
+React + express + postgres
+Database schema
+Seed Data
+API
+frontend
