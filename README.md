@@ -12,6 +12,7 @@ MVP
 
 Nice to Have's if I have time
 
+- Account balance roll over so the balance calculations dont have to go through the whole db entries.
 - reversal of a journal entry, may not have time
 - a draft entry option where users can create journal lines that are editable until recorded
 - I'm leaving the reporting category and project categorization the last
