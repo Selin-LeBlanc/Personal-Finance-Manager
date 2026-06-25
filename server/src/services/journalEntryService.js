@@ -1,7 +1,7 @@
 const prisma = require("../prismaClient");
 
-// Selin, do not forget the route and controller for this service pls.
-// And export the function
+// Selin, do not forget the route and controller for these services pls.
+// And export the functions
 // And update the src/app.js
 
 // Validation logic:
@@ -56,6 +56,7 @@ function validateJournalEntryInput({ entryDate, description, lines }) {
   }
 }
 
+//CRESTE
 async function createJournalEntry(data) {
   validateJournalEntryInput(data);
 
@@ -106,6 +107,24 @@ async function createJournalEntry(data) {
   return journalEntry;
 }
 
+//GET
+async function getAllJournalEntries() {
+  return prisma.journalEntry.findMany({
+    orderBy: {
+      entryDate: "desc",
+    },
+    include: {
+      lines: {
+        include: {
+          account: true,
+        },
+      },
+    },
+  });
+}
+
+// Thank you copilot for automatically updating the exports.
 module.exports = {
   createJournalEntry,
+  getAllJournalEntries,
 };

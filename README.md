@@ -2,6 +2,27 @@
 
 Personal Finance Manager Technical Challange
 
+MVP
+
+- Account management: manage multiple personal accounts (for example, checking, savings, credit) and store transactions for each account.
+- Account balances: view current balance per account and retrieve historical balances at a selected date/time.
+- Monthly expense reporting: view a monthly report of expenses grouped by category.
+- Planned cash flow: store future bills and expected income, and view projected total budget balance.
+- Project-based tracking: tag expenses by project (for example, house remodeling or a trip) and view project-specific totals.
+
+Nice to Have's if I have time
+
+- reversal of a journal entry, may not have time
+- I'm leaving the reporting category and project categorization the last
+- a seperate transaction date (means there will only be journal entry created and updated date)
+
+Excluding:
+
+- creation of new accounts
+- createdBy / updatedBy info
+- a field for reference number
+- Multuple fund/estate management
+
 Journal Line,
 Journal Entry,
 Account,
@@ -15,13 +36,3 @@ Journal entries and Journal lines are the core of the app.
 1 account may have multiple journal lines.
 1 project may have multiple journal lines.
 1 reporting category may have multiple journal lines.
-
-Excluding:
-
-- reversal of a journal entry, may not have time
-- creation of new accounts
-- createdBy / updatedBy info
-- a field for reference number
-- a seperate transaction date (means there will only be journal entry created and updated date)
-- Multuple fund/estate management
-- I'm leaving the reporting category and project categorization the last
