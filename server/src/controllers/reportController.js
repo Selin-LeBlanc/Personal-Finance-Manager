@@ -2,6 +2,10 @@ const reportService = require("../services/reportService");
 
 async function getAccountBalances(req, res) {
   try {
+    const asOfDate = req.query.asOfDate
+      ? new Date(req.query.asOfDate)
+      : new Date();
+
     const balances = await reportService.getAccountBalances();
 
     res.status(200).json({

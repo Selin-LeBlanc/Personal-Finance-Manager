@@ -25,6 +25,8 @@ Excluding:
 - createdBy / updatedBy info
 - a field for reference number
 - Multuple fund/estate management
+- Year end entries and year end closing
+- Shareholders' Equity Statement and Cash Flow Statement
 
 Journal Line,
 Journal Entry,

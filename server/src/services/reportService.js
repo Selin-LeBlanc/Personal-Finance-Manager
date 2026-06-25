@@ -21,13 +21,24 @@ function calculateBalance(account) {
   return totalCredit - totalDebit;
 }
 
-async function getAccountBalances() {
+async function getAccountBalances(asOfDate = new Date()) {
   const accounts = await prisma.account.findMany({
     orderBy: {
       code: "asc",
     },
     include: {
-      journalLines: true,
+      journalLines: {
+        where: {
+          journalEntry: {
+            entryDate: {
+              lte: asOfDate,
+            },
+          },
+        },
+        include: {
+          journalEntry: true,
+        },
+      },
     },
   });
 
@@ -45,6 +56,39 @@ async function getAccountBalances() {
   });
 }
 
+// Balance sheet and Income statement
+async function getBalanceSheet(asOfDate = new Date()) {
+  const balances = await getAccountBalances(asOfDate);
+
+  const assets = balances.filter((account) => account.type === "ASSET");
+  const liabilities = balances.filter(
+    (account) => account.type === "LIABILITY",
+  );
+  const equity = balances.filter((account) => account.type === "EQUITY");
+
+  // Total Sums per category may or maynot be needed, but I will include them for now.
+  const totalAssets = assets.reduce((sum, account) => sum + account.balance, 0);
+  const totalLiabilities = liabilities.reduce(
+    (sum, account) => sum + account.balance,
+    0,
+  );
+  const totalEquity = equity.reduce((sum, account) => sum + account.balance, 0);
+
+  return {
+    asOfDate,
+    assets,
+    liabilities,
+    equity,
+    totals: {
+      totalAssets,
+      totalLiabilities,
+      totalEquity,
+      totalLiabilitiesAndEquity: totalLiabilities + totalEquity,
+    },
+  };
+}
+
 module.exports = {
   getAccountBalances,
+  getBalanceSheet,
 };
