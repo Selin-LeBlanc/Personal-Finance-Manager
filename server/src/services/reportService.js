@@ -44,3 +44,7 @@ async function getAccountBalances() {
     };
   });
 }
+
+module.exports = {
+  getAccountBalances,
+};
