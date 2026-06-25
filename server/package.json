@@ -10,19 +10,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^7.8.0",
+    "@prisma/client": "^6.19.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "prisma": "^6.19.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14",
-    "prisma": "^7.8.0"
+    "nodemon": "^3.1.14"
   },
   "description": "",
   "allowScripts": {
-    "@prisma/engines@7.8.0": true,
     "fsevents@2.3.3": true,
-    "prisma@7.8.0": true
+    "prisma@6.19.3": true,
+    "@prisma/client@6.19.3": true,
+    "@prisma/engines@6.19.3": true
   }
 }
