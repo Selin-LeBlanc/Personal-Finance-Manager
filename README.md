@@ -24,3 +24,4 @@ Excluding:
 - a field for reference number
 - a seperate transaction date (means there will only be journal entry created and updated date)
 - Multuple fund/estate management
+- I'm leaving the reporting category and project categorization the last

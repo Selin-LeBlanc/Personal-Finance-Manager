@@ -1,6 +1,8 @@
 const prisma = require("../prismaClient");
 
 // Selin, do not forget the route and controller for this service pls.
+// And export the function
+// And update the src/app.js
 
 // Validation logic:
 // there should be at least two lines,
