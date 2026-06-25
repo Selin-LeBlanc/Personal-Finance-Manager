@@ -74,6 +74,7 @@ model Account {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
   /// Ideally, I would include createdBy and updatedBy in the schema. But we are not doing authorization&authentication now.
 }
 
@@ -82,6 +83,7 @@ model Account {
 /// Represents a journal entry (financial transaction)
 /// Each journal entry contains one or more debit and credit line items
 /// that maintain the accounting equation (Assets = Liabilities + Equity)
+/// SourceType is to seperate a manual entry/reversal/integration entry etc. for the future 
 model JournalEntry {
   id          String             @id @default(uuid())
   entryDate   DateTime
@@ -103,6 +105,7 @@ model JournalEntry {
 /// Represents a line item in a journal entry
 /// Each line item represents a debit or credit to a specific account
 /// In double-entry bookkeeping, each entry contains at least one debit and one credit
+
 model JournalLine {
   id String @id @default(uuid())
 

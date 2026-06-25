@@ -1,0 +1,109 @@
+const prisma = require("../prismaClient");
+
+// Selin, do not forget the route and controller for this service pls.
+
+// Validation logic:
+// there should be at least two lines,
+// each line must have either a debit or credit amount,
+// and total debits must equal total credits.
+// Description and entryDate are required fields.
+// I'm not adding validation for the date for the purpose of this assignment
+
+function validateJournalEntryInput({ entryDate, description, lines }) {
+  if (!entryDate) {
+    throw new Error("Entry date is required");
+  }
+
+  if (!description) {
+    throw new Error("Description is required");
+  }
+
+  if (!Array.isArray(lines) || lines.length < 2) {
+    throw new Error("A journal entry must have at least two lines");
+  }
+
+  let totalDebits = 0;
+  let totalCredits = 0;
+
+  for (const line of lines) {
+    const debit = Number(line.debit || 0);
+    const credit = Number(line.credit || 0);
+
+    if (!line.accountId) {
+      throw new Error("Each line must have an accountId");
+    }
+
+    if (debit < 0 || credit < 0) {
+      throw new Error("Debit and credit amounts cannot be negative");
+    }
+
+    if (debit > 0 && credit > 0) {
+      throw new Error("A line cannot have both debit and credit");
+    }
+
+    if (debit === 0 && credit === 0) {
+      throw new Error("Each line must have either a debit or credit amount");
+    }
+
+    totalDebits += debit;
+    totalCredits += credit;
+  }
+
+  if (totalDebits !== totalCredits) {
+    throw new Error("Total debits must equal total credits");
+  }
+}
+
+async function createJournalEntry(data) {
+  validateJournalEntryInput(data);
+
+  const accountIds = data.lines.map((line) => line.accountId);
+  // Check if all accountIds exist in the database
+  // for a better UX, this should be a dropdown menu in the front end IMO, since the user should only be able to select from existing accounts, but can check here just in case
+  const accounts = await prisma.account.findMany({
+    where: {
+      id: {
+        in: accountIds,
+      },
+    },
+  });
+
+  if (accounts.length !== accountIds.length) {
+    throw new Error("One or more accounts do not exist");
+  }
+  // creating the journal entry, with entry date, description, status, sourceType, and lines.
+
+  // "tx" stands for "transaction" in databases. It allows you to perform multiple database operations within a single transaction, ensuring that either all operations succeed or none of them are applied, maintaining data integrity.
+  // This is important in accounting, as you want to ensure that all lines of a journal entry are created together, or none at all, to maintain the integrity of the financial records.
+  const journalEntry = await prisma.$transaction(async (prismaTx) => {
+    return prismaTx.journalEntry.create({
+      data: {
+        entryDate: new Date(data.entryDate),
+        description: data.description,
+        status: data.status || "POSTED",
+        sourceType: data.sourceType || "MANUAL",
+        lines: {
+          create: data.lines.map((line) => ({
+            accountId: line.accountId,
+            debit: Number(line.debit || 0),
+            credit: Number(line.credit || 0),
+            memo: line.memo || null,
+          })),
+        },
+      },
+      include: {
+        lines: {
+          include: {
+            account: true,
+          },
+        },
+      },
+    });
+  });
+
+  return journalEntry;
+}
+
+module.exports = {
+  createJournalEntry,
+};

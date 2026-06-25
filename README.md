@@ -15,3 +15,12 @@ Journal entries and Journal lines are the core of the app.
 1 account may have multiple journal lines.
 1 project may have multiple journal lines.
 1 reporting category may have multiple journal lines.
+
+Excluding:
+
+- reversal of a journal entry, may not have time
+- creation of new accounts
+- createdBy / updatedBy info
+- a field for reference number
+- a seperate transaction date (means there will only be journal entry created and updated date)
+- Multuple fund/estate management
