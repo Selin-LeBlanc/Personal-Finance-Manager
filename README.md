@@ -13,8 +13,10 @@ MVP
 Nice to Have's if I have time
 
 - reversal of a journal entry, may not have time
+- a draft entry option where users can create journal lines that are editable until recorded
 - I'm leaving the reporting category and project categorization the last
 - a seperate transaction date (means there will only be journal entry created and updated date)
+- Create a shared error messages file
 
 Excluding:
 
