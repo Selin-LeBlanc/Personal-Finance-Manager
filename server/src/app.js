@@ -4,6 +4,7 @@ const cors = require("cors");
 // Future Selin, please do not forget to create the variables for the routes here
 const accountRoutes = require("./routes/accountRoutes");
 const journalEntryRoutes = require("./routes/journalEntryRoutes");
+const reportRoutes = require("./routes/reportRoutes");
 
 const app = express();
 
@@ -17,5 +18,5 @@ app.get("/", (req, res) => {
 // Future Selin, please do not forget to add all of the account routes here
 app.use("/api/accounts", accountRoutes);
 app.use("/api/journal-entries", journalEntryRoutes);
-
+app.use("/api/reports", reportRoutes);
 module.exports = app;
