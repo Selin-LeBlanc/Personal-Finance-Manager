@@ -10,8 +10,7 @@ function Sidebar({ activePage, setActivePage }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h2>Estate Ledger</h2>
-        <p>Estate Accounting & Administration</p>
+        <h2>Estate Accounting & Administration</h2>
       </div>
 
       <nav className="sidebar-nav">
