@@ -115,7 +115,7 @@ async function handleSubmit(event) {
     } else {
       setMessage("Failed to create journal entry");
     }
-    
+
     setFormData({
       entryDate: "",
       description: "",
@@ -128,6 +128,79 @@ async function handleSubmit(event) {
     setShowForm(false);
     loadJournalEntries();
   }
+
+   const columns = [
+    {
+      header: "Date",
+      accessor: "entryDate",
+      render: (row) => new Date(row.entryDate).toLocaleDateString(),
+    },
+    {
+      header: "Description",
+      accessor: "description",
+    },
+    {
+      header: "Status",
+      accessor: "status",
+    },
+    {
+      header: "Lines",
+      accessor: "lines",
+      render: (row) => row.lines.length,
+    },
+  ];
+
+  // That was a lot...
+
+  return (
+    <>
+      <PageHeader
+        title="Journal Entries"
+        subtitle="Create and review double-entry journal entries."
+      />
+
+      <Card>
+
+      </Card>
+
+      <Card title="Search Journal Entries">
+        <form className="form-grid" onSubmit={handleSearch}>
+          <label>
+            Entry Date
+            <input
+              type="date"
+              value={entryDateFilter}
+              onChange={(event) => setEntryDateFilter(event.target.value)}
+            />
+          </label>
+
+          <label>
+            Account Code
+            <input
+              type="text"
+              value={accountCodeFilter}
+              onChange={(event) => setAccountCodeFilter(event.target.value)}
+              placeholder="Example: 11100"
+            />
+          </label>
+
+          <div className="button-row">
+            <button type="submit" className="primary-button">
+              Search
+            </button>
+
+            <button type="button" className="secondary-button" onClick={handleClearSearch}>
+              Clear
+            </button>
+          </div>
+        </form>
+      </Card>
+
+      <Card title="Journal Entries">
+        <Table columns={columns} data={journalEntries} />
+      </Card>
+    </>
+  );
 }
 
 export default JournalEntries;
