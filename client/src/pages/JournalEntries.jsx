@@ -26,8 +26,8 @@ function JournalEntries() {
     entryDate: "",
     description: "",
     lines: [
-      { accountId: "", debit: "", credit: "", memo: "" },
-      { accountId: "", debit: "", credit: "", memo: "" },
+      { accountCode: "", debit: "", credit: "", memo: "" },
+      { accountCode: "", debit: "", credit: "", memo: "" },
     ],
   });
 
@@ -49,10 +49,14 @@ function JournalEntries() {
       setMessage("Failed to load accounts");
     }
   }
-// loadJournnal entries is throwing an error, will check the API call
+// loadJournnal entries is throwing an error, will check the API call.
+// Instead of useEffect = {loadJournalEntries, loadAccounts} copilot suggested an async function in case we want to load both at the same time, which is not a bad idea. Good job copilot!
   useEffect(() => {
-    loadJournalEntries();
-    loadAccounts();
+    const initializePageData = async () => {
+      await Promise.all([loadJournalEntries(), loadAccounts()]);
+    };
+
+    void initializePageData();
   }, []);
 
   // Event handlers for the filters
@@ -91,7 +95,7 @@ function JournalEntries() {
   function handleAddLine() {
     setFormData((prevData) => ({
       ...prevData,
-      lines: [...prevData.lines, { accountId: "", debit: "", credit: "", memo: "" }],
+      lines: [...prevData.lines, { accountCode: "", debit: "", credit: "", memo: "" }],
     }));
   }
 async function handleSubmit(event) {
@@ -101,7 +105,7 @@ async function handleSubmit(event) {
       description: formData.description,
       status: "POSTED", // Right now I'm only using POSTED status, but in the future, we can add a DRAFT status and a way to change the status of a journal entry
       lines: formData.lines.map((line) => ({
-        accountId: line.accountId,
+        accountCode: line.accountCode,
         debit: parseFloat(line.debit) || 0,
         credit: parseFloat(line.credit) || 0,
         memo: line.memo,
@@ -120,8 +124,8 @@ async function handleSubmit(event) {
       entryDate: "",
       description: "",
       lines: [
-        { accountId: "", debit: "", credit: "", memo: "" },
-        { accountId: "", debit: "", credit: "", memo: "" },
+        { accountCode: "", debit: "", credit: "", memo: "" },
+        { accountCode: "", debit: "", credit: "", memo: "" },
       ],
     });
 
@@ -160,7 +164,108 @@ async function handleSubmit(event) {
       />
 
       <Card>
+        <div className="toolbar">
+          <button className="primary-button" onClick={() => setShowForm(!showForm)}>
+            {showForm ? "Cancel" : "+ Add New Journal Entry"}
+          </button>
+        </div>
 
+        {message && <p className="message">{message}</p>}
+
+        {showForm && (
+          <form className="form-section" onSubmit={handleSubmit}>
+            <div className="form-grid">
+              <label>
+                Entry Date
+                <input
+                  type="date"
+                  name="entryDate"
+                  value={formData.entryDate}
+                  onChange={handleFormChange}
+                  required
+                />
+              </label>
+
+              <label>
+                Description
+                <input
+                  type="text"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleFormChange}
+                  required
+                />
+              </label>
+            </div>
+
+            <h3>Journal Lines</h3>
+
+            {formData.lines.map((line, index) => (
+              <div className="journal-line-grid" key={index}>
+                <label>
+                  Account
+                  <select
+                    value={line.accountCode}
+                    onChange={(event) =>
+                      handleLineChange(index, "accountCode", event.target.value)
+                    }
+                    required
+                  >
+                    <option value="">Select account</option>
+                    {accounts.map((account) => (
+                      <option key={account.id} value={account.code}>
+                        {account.code} - {account.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label>
+                  Debit
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={line.debit}
+                    onChange={(event) =>
+                      handleLineChange(index, "debit", event.target.value)
+                    }
+                  />
+                </label>
+
+                <label>
+                  Credit
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={line.credit}
+                    onChange={(event) =>
+                      handleLineChange(index, "credit", event.target.value)
+                    }
+                  />
+                </label>
+
+                <label>
+                  Memo
+                  <input
+                    type="text"
+                    value={line.memo}
+                    onChange={(event) =>
+                      handleLineChange(index, "memo", event.target.value)
+                    }
+                  />
+                </label>
+              </div>
+            ))}
+
+            <button type="button" className="secondary-button" onClick={handleAddLine}>
+              + Add Line
+            </button>
+
+            <button type="submit" className="primary-button">
+              Save Journal Entry
+            </button>
+          </form>
+        )}
       </Card>
 
       <Card title="Search Journal Entries">

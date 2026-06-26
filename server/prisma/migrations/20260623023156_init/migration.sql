@@ -43,7 +43,7 @@ CREATE TABLE "JournalEntry" (
 CREATE TABLE "JournalLine" (
     "id" TEXT NOT NULL,
     "journalEntryId" TEXT NOT NULL,
-    "accountId" TEXT NOT NULL,
+    "accountCode" TEXT NOT NULL,
     "reportingCategoryId" TEXT,
     "projectId" TEXT,
     "debit" DECIMAL(12,2) NOT NULL DEFAULT 0,
@@ -84,7 +84,7 @@ CREATE TABLE "Project" (
 CREATE TABLE "Budget" (
     "id" TEXT NOT NULL,
     "month" TEXT NOT NULL,
-    "accountId" TEXT,
+    "accountCode" TEXT,
     "reportingCategoryId" TEXT,
     "amount" DECIMAL(12,2) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -102,7 +102,7 @@ CREATE TABLE "PlannedEntry" (
     "dueDate" TIMESTAMP(3) NOT NULL,
     "isRecurring" BOOLEAN NOT NULL DEFAULT false,
     "recurrence" TEXT,
-    "accountId" TEXT,
+    "accountCode" TEXT,
     "reportingCategoryId" TEXT,
     "projectId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -134,7 +134,7 @@ ALTER TABLE "JournalEntry" ADD CONSTRAINT "JournalEntry_reversalOfId_fkey" FOREI
 ALTER TABLE "JournalLine" ADD CONSTRAINT "JournalLine_journalEntryId_fkey" FOREIGN KEY ("journalEntryId") REFERENCES "JournalEntry"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "JournalLine" ADD CONSTRAINT "JournalLine_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "JournalLine" ADD CONSTRAINT "JournalLine_accountCode_fkey" FOREIGN KEY ("accountCode") REFERENCES "Account"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "JournalLine" ADD CONSTRAINT "JournalLine_reportingCategoryId_fkey" FOREIGN KEY ("reportingCategoryId") REFERENCES "ReportingCategory"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -143,13 +143,13 @@ ALTER TABLE "JournalLine" ADD CONSTRAINT "JournalLine_reportingCategoryId_fkey" 
 ALTER TABLE "JournalLine" ADD CONSTRAINT "JournalLine_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Budget" ADD CONSTRAINT "Budget_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Budget" ADD CONSTRAINT "Budget_accountCode_fkey" FOREIGN KEY ("accountCode") REFERENCES "Account"("code") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Budget" ADD CONSTRAINT "Budget_reportingCategoryId_fkey" FOREIGN KEY ("reportingCategoryId") REFERENCES "ReportingCategory"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PlannedEntry" ADD CONSTRAINT "PlannedEntry_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "PlannedEntry" ADD CONSTRAINT "PlannedEntry_accountCode_fkey" FOREIGN KEY ("accountCode") REFERENCES "Account"("code") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PlannedEntry" ADD CONSTRAINT "PlannedEntry_reportingCategoryId_fkey" FOREIGN KEY ("reportingCategoryId") REFERENCES "ReportingCategory"("id") ON DELETE SET NULL ON UPDATE CASCADE;

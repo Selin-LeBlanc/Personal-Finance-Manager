@@ -31,8 +31,8 @@ function validateJournalEntryInput({ entryDate, description, lines }) {
     const debit = Number(line.debit || 0);
     const credit = Number(line.credit || 0);
 
-    if (!line.accountId) {
-      throw new Error("Each line must have an accountId");
+    if (!line.accountCode) {
+      throw new Error("Each line must have an accountCode");
     }
 
     if (debit < 0 || credit < 0) {
@@ -60,18 +60,18 @@ function validateJournalEntryInput({ entryDate, description, lines }) {
 async function createJournalEntry(data) {
   validateJournalEntryInput(data);
 
-  const accountIds = data.lines.map((line) => line.accountId);
-  // Check if all accountIds exist in the database
+  const accountCodes = data.lines.map((line) => line.accountCode);
+  // Check if all accountCodes exist in the database
   // for a better UX, this should be a dropdown menu in the front end IMO, since the user should only be able to select from existing accounts, but can check here just in case
   const accounts = await prisma.account.findMany({
     where: {
-      id: {
-        in: accountIds,
+      code: {
+        in: accountCodes,
       },
     },
   });
 
-  if (accounts.length !== accountIds.length) {
+  if (accounts.length !== accountCodes.length) {
     throw new Error("One or more accounts do not exist");
   }
   // creating the journal entry, with entry date, description, status, sourceType, and lines.
@@ -87,7 +87,7 @@ async function createJournalEntry(data) {
         sourceType: data.sourceType || "MANUAL",
         lines: {
           create: data.lines.map((line) => ({
-            accountId: line.accountId,
+            accountCode: line.accountCode,
             debit: Number(line.debit || 0),
             credit: Number(line.credit || 0),
             memo: line.memo || null,
