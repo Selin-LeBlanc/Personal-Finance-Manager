@@ -432,6 +432,100 @@ async function main() {
   });
   console.log("Expenses seeded");
 
+  // Build chart-of-accounts hierarchy by linking each child code to its parent code.
+  const parentByChildCode = {
+    11000: "10000",
+    11100: "11000",
+    11200: "11000",
+    11300: "11000",
+    12000: "10000",
+    12100: "12000",
+    12200: "12000",
+    13000: "10000",
+    13100: "13000",
+    13200: "13000",
+    14000: "10000",
+    14100: "14000",
+    14200: "14000",
+    14300: "14000",
+
+    21000: "20000",
+    21100: "21000",
+    21200: "21000",
+    21300: "21000",
+    22000: "20000",
+    22100: "22000",
+    22200: "22000",
+    22300: "22000",
+
+    31000: "30000",
+    31100: "31000",
+    32000: "30000",
+    32100: "32000",
+    32200: "32000",
+    33000: "30000",
+    33100: "33000",
+    33200: "33000",
+    33300: "33000",
+
+    41000: "40000",
+    41100: "41000",
+    41200: "41000",
+    41300: "41000",
+
+    51000: "50000",
+    51100: "51000",
+    51200: "51000",
+    51300: "51000",
+    51400: "51000",
+    52000: "50000",
+    52100: "52000",
+    52200: "52000",
+    52300: "52000",
+    53000: "50000",
+    53100: "53000",
+    53200: "53000",
+    53300: "53000",
+  };
+  // In this part, I will trust CoPilot to generate the code for linking the parent-child relationships in the chart of accounts.
+
+  // I forgot to do this before creating the accounts :/
+  const codesToFetch = Array.from(
+    new Set([
+      ...Object.keys(parentByChildCode),
+      ...Object.values(parentByChildCode),
+    ]),
+  );
+
+  const accounts = await prisma.account.findMany({
+    where: {
+      code: { in: codesToFetch },
+    },
+    select: {
+      id: true,
+      code: true,
+    },
+  });
+
+  const accountIdByCode = Object.fromEntries(
+    accounts.map((account) => [account.code, account.id]),
+  );
+
+  await prisma.$transaction(
+    Object.entries(parentByChildCode)
+      .filter(([childCode, parentCode]) => {
+        return accountIdByCode[childCode] && accountIdByCode[parentCode];
+      })
+      .map(([childCode, parentCode]) => {
+        return prisma.account.update({
+          where: { code: childCode },
+          data: { parentAccountId: accountIdByCode[parentCode] },
+        });
+      }),
+  );
+
+  console.log("Account hierarchy linked");
+
   console.log("Estate chart of accounts seeded successfully.");
 }
 

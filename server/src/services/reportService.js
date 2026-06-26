@@ -21,15 +21,51 @@ function calculateBalance(account) {
   return totalCredit - totalDebit;
 }
 
+// Helper function to get sub-accounts of a given parentaccount
+async function getAccountAndSubAccounts(accountCode) {
+  const parentAccount = await prisma.account.findUnique({
+    where: { code: accountCode },
+  });
+
+  if (!parentAccount) {
+    throw new Error(`Account with code ${accountCode} not found`);
+  }
+
+  const accountAndSubAccountIds = [parentAccount.id];
+  let currentParentIds = [parentAccount.id];
+
+  while (currentParentIds.length > 0) {
+    const childAccounts = await prisma.account.findMany({
+      where: {
+        parentAccountId: {
+          in: currentParentIds,
+        },
+      },
+    });
+
+    const childIds = childAccounts.map((account) => account.id);
+
+    accountAndSubAccountIds.push(...childIds);
+    currentParentIds = childIds;
+  }
+
+  return accountAndSubAccountIds;
+}
+
 async function getAccountBalances(asOfDate = new Date(), filters = {}) {
   const where = {};
 
   if (filters.type) {
     where.type = filters.type;
   }
-
+  // Updated the getAccountBalances function to include a filter for account code and its sub-accounts
   if (filters.code) {
-    where.code = filters.code;
+    const accountAndSubAccountIds = await getAccountAndSubAccounts(
+      filters.code,
+    );
+    where.id = {
+      in: accountAndSubAccountIds,
+    };
   }
 
   const accounts = await prisma.account.findMany({
