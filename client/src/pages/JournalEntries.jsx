@@ -55,7 +55,79 @@ function JournalEntries() {
     loadAccounts();
   }, []);
 
-  
+  // Event handlers for the filters
+
+  function handleSearch(event) {
+    event.preventDefault();
+    loadJournalEntries({
+      asOfDate: entryDateFilter, 
+      accountCode: accountCodeFilter,
+    });
+  }
+
+  function handleClearSearch() {
+    setEntryDateFilter("");
+    setAccountCodeFilter("");
+    loadJournalEntries();
+  }
+
+  function handleFormChange(event) {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+  // This is spooky, copilot can guess correctly what I'm goint to handle next. 
+  function handleLineChange(index, event) {
+    const { name, value } = event.target;
+    setFormData((prevData) => {
+      const newLines = [...prevData.lines];
+      newLines[index][name] = value;
+      return { ...prevData, lines: newLines };
+    });
+  }
+
+  function handleAddLine() {
+    setFormData((prevData) => ({
+      ...prevData,
+      lines: [...prevData.lines, { accountId: "", debit: "", credit: "", memo: "" }],
+    }));
+  }
+async function handleSubmit(event) {
+    event.preventDefault();
+    const payload = {
+      entryDate: formData.entryDate,
+      description: formData.description,
+      status: "POSTED", // Right now I'm only using POSTED status, but in the future, we can add a DRAFT status and a way to change the status of a journal entry
+      lines: formData.lines.map((line) => ({
+        accountId: line.accountId,
+        debit: parseFloat(line.debit) || 0,
+        credit: parseFloat(line.credit) || 0,
+        memo: line.memo,
+      })),
+    }
+    const response = await createJournalEntry(payload);
+    if (response.success) {
+      setMessage("Journal entry created successfully");
+      setShowForm(false);
+      loadJournalEntries();
+    } else {
+      setMessage("Failed to create journal entry");
+    }
+    
+    setFormData({
+      entryDate: "",
+      description: "",
+      lines: [
+        { accountId: "", debit: "", credit: "", memo: "" },
+        { accountId: "", debit: "", credit: "", memo: "" },
+      ],
+    });
+
+    setShowForm(false);
+    loadJournalEntries();
+  }
 }
 
 export default JournalEntries;
