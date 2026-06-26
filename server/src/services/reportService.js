@@ -21,8 +21,19 @@ function calculateBalance(account) {
   return totalCredit - totalDebit;
 }
 
-async function getAccountBalances(asOfDate = new Date()) {
+async function getAccountBalances(asOfDate = new Date(), filters = {}) {
+  const where = {};
+
+  if (filters.type) {
+    where.type = filters.type;
+  }
+
+  if (filters.code) {
+    where.code = filters.code;
+  }
+
   const accounts = await prisma.account.findMany({
+    where,
     orderBy: {
       code: "asc",
     },
@@ -88,7 +99,32 @@ async function getBalanceSheet(asOfDate = new Date()) {
   };
 }
 
+async function getIncomeStatement(asOfDate = new Date()) {
+  const balances = await getAccountBalances(asOfDate);
+
+  const income = balances.filter((account) => account.type === "INCOME");
+  const expenses = balances.filter((account) => account.type === "EXPENSE");
+
+  const totalIncome = income.reduce((sum, account) => sum + account.balance, 0);
+  const totalExpenses = expenses.reduce(
+    (sum, account) => sum + account.balance,
+    0,
+  );
+
+  return {
+    asOfDate,
+    income,
+    expenses,
+    totals: {
+      totalIncome,
+      totalExpenses,
+      netIncome: totalIncome - totalExpenses,
+    },
+  };
+}
+
 module.exports = {
   getAccountBalances,
   getBalanceSheet,
+  getIncomeStatement,
 };
