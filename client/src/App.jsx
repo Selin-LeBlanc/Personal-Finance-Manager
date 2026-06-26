@@ -1,22 +1,16 @@
 import { useState } from "react";
 import "./App.css";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [activePage, setActivePage] = useState("dashboard");
 
   return (
     <div className="app">
-      <aside className="sidebar">
-        <h2>Estate Ledger</h2>
-
-        <button onClick={() => setActivePage("dashboard")}>Dashboard</button>
-        <button onClick={() => setActivePage("accounts")}>Accounts</button>
-        <button onClick={() => setActivePage("journalEntries")}>
-          Journal Entries
-        </button>
-        <button onClick={() => setActivePage("reports")}>Reports</button>
-      </aside>
-
+      <Sidebar
+        activePage={activePage}
+        setActivePage={setActivePage}
+      />
       <main className="main-content">
         {activePage === "dashboard" && <h1>Dashboard</h1>}
         {activePage === "accounts" && <h1>Accounts</h1>}
