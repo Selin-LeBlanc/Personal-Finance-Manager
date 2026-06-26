@@ -21,7 +21,7 @@ function Accounts() {
     { header: "Code", accessor: "code" },
     { header: "Account Name", accessor: "name" },
     { header: "Account Type", accessor: "type" },
-    { header: "Balance", accessor: "balance" },
+    { header: "Balance", accessor: "normalBalance" },
   ];
 
   return (
