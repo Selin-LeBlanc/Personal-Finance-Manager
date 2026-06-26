@@ -15,7 +15,7 @@ async function getAccountBalances(req, res) {
 
     res.status(200).json({
       success: true,
-      data: { asOfDate, filters, accounts: balances },
+      data: { asOfDate, filters, accounts: balances }, // this balances variable will be changed to display tha actual account balances, right now this is just a placeholder to show the structure of the response
     });
   } catch (error) {
     res.status(500).json({
