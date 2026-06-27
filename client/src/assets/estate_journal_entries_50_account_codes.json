@@ -1,0 +1,989 @@
+[
+  {
+    "entryDate": "2026-06-01",
+    "description": "Opening estate cash balance",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 125000,
+        "credit": 0,
+        "memo": "Opening cash at date of death"
+      },
+      {
+        "accountCode": "31100",
+        "debit": 0,
+        "credit": 125000,
+        "memo": "Opening estate value"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-01",
+    "description": "Opening estate savings balance",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11200",
+        "debit": 75000,
+        "credit": 0,
+        "memo": "Opening savings balance"
+      },
+      {
+        "accountCode": "31100",
+        "debit": 0,
+        "credit": 75000,
+        "memo": "Opening estate value"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-01",
+    "description": "Opening primary residence value",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "12100",
+        "debit": 420000,
+        "credit": 0,
+        "memo": "Primary residence appraised value"
+      },
+      {
+        "accountCode": "31100",
+        "debit": 0,
+        "credit": 420000,
+        "memo": "Opening estate value"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-01",
+    "description": "Opening vehicle value",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "13100",
+        "debit": 18000,
+        "credit": 0,
+        "memo": "Vehicle appraised value"
+      },
+      {
+        "accountCode": "31100",
+        "debit": 0,
+        "credit": 18000,
+        "memo": "Opening estate value"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-01",
+    "description": "Opening investment portfolio value",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "14100",
+        "debit": 96000,
+        "credit": 0,
+        "memo": "Investment portfolio at date of death"
+      },
+      {
+        "accountCode": "31100",
+        "debit": 0,
+        "credit": 96000,
+        "memo": "Opening estate value"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-03",
+    "description": "June rental income received",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 2500,
+        "credit": 0,
+        "memo": "Rent received"
+      },
+      {
+        "accountCode": "41300",
+        "debit": 0,
+        "credit": 2500,
+        "memo": "Rental income"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-05",
+    "description": "Interest earned on estate savings",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11200",
+        "debit": 145.25,
+        "credit": 0,
+        "memo": "Bank interest"
+      },
+      {
+        "accountCode": "41100",
+        "debit": 0,
+        "credit": 145.25,
+        "memo": "Interest earned"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-07",
+    "description": "Dividend income received",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 640,
+        "credit": 0,
+        "memo": "Dividend received"
+      },
+      {
+        "accountCode": "41200",
+        "debit": 0,
+        "credit": 640,
+        "memo": "Dividend income"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-10",
+    "description": "Additional rental income received",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 2500,
+        "credit": 0,
+        "memo": "Second rental receipt"
+      },
+      {
+        "accountCode": "41300",
+        "debit": 0,
+        "credit": 2500,
+        "memo": "Rental income"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-12",
+    "description": "Investment interest received",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 220,
+        "credit": 0,
+        "memo": "Investment interest"
+      },
+      {
+        "accountCode": "41100",
+        "debit": 0,
+        "credit": 220,
+        "memo": "Interest earned"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-04",
+    "description": "Estate lawyer invoice paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "52100",
+        "debit": 1800,
+        "credit": 0,
+        "memo": "Legal services",
+        "reportingCategory": "Professional Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 1800,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-06",
+    "description": "Accounting consultation paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "52200",
+        "debit": 950,
+        "credit": 0,
+        "memo": "Accounting consultation",
+        "reportingCategory": "Professional Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 950,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-09",
+    "description": "Property appraisal fee paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "52300",
+        "debit": 650,
+        "credit": 0,
+        "memo": "Residence appraisal",
+        "reportingCategory": "Professional Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 650,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-15",
+    "description": "Additional legal correspondence fee",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "52100",
+        "debit": 425,
+        "credit": 0,
+        "memo": "Legal correspondence",
+        "reportingCategory": "Professional Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 425,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-22",
+    "description": "Tax preparation retainer",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "52200",
+        "debit": 1200,
+        "credit": 0,
+        "memo": "Tax preparation retainer",
+        "reportingCategory": "Professional Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 1200,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-08",
+    "description": "Property insurance premium",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51200",
+        "debit": 950,
+        "credit": 0,
+        "memo": "Insurance premium",
+        "reportingCategory": "Property Expenses"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 950,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-11",
+    "description": "Electricity bill paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51300",
+        "debit": 185.75,
+        "credit": 0,
+        "memo": "Electricity bill",
+        "reportingCategory": "Utilities"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 185.75,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-13",
+    "description": "Gas bill paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51300",
+        "debit": 96.5,
+        "credit": 0,
+        "memo": "Gas bill",
+        "reportingCategory": "Utilities"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 96.5,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-14",
+    "description": "Water bill paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51300",
+        "debit": 72.35,
+        "credit": 0,
+        "memo": "Water bill",
+        "reportingCategory": "Utilities"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 72.35,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-16",
+    "description": "Property tax installment paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51100",
+        "debit": 1250,
+        "credit": 0,
+        "memo": "Municipal property tax",
+        "reportingCategory": "Property Taxes"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 1250,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-17",
+    "description": "House cleaning service",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 280,
+        "credit": 0,
+        "memo": "Cleaning before showing",
+        "reportingCategory": "Maintenance",
+        "project": "Property Sale Preparation"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 280,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-18",
+    "description": "Minor plumbing repair",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 410,
+        "credit": 0,
+        "memo": "Plumbing repair",
+        "reportingCategory": "Maintenance",
+        "project": "Property Sale Preparation"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 410,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-19",
+    "description": "Lawn maintenance",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 180,
+        "credit": 0,
+        "memo": "Lawn care",
+        "reportingCategory": "Maintenance",
+        "project": "Property Maintenance"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 180,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-21",
+    "description": "Lock replacement for estate property",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 225,
+        "credit": 0,
+        "memo": "Locksmith service",
+        "reportingCategory": "Maintenance",
+        "project": "Property Security"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 225,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-24",
+    "description": "Garage door repair",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 365,
+        "credit": 0,
+        "memo": "Garage door repair",
+        "reportingCategory": "Maintenance",
+        "project": "Property Maintenance"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 365,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-20",
+    "description": "Executor mileage reimbursement",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "53300",
+        "debit": 145,
+        "credit": 0,
+        "memo": "Mileage reimbursement",
+        "reportingCategory": "Executor Expenses"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 145,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-23",
+    "description": "Courier documents to lawyer",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "53200",
+        "debit": 38.6,
+        "credit": 0,
+        "memo": "Courier documents",
+        "reportingCategory": "Administration"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 38.6,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-25",
+    "description": "Bank service charges",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "53200",
+        "debit": 16.95,
+        "credit": 0,
+        "memo": "Monthly bank fee",
+        "reportingCategory": "Banking Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 16.95,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-26",
+    "description": "Executor compensation accrual",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "53100",
+        "debit": 3000,
+        "credit": 0,
+        "memo": "Executor compensation estimate",
+        "reportingCategory": "Executor Expenses"
+      },
+      {
+        "accountCode": "22000",
+        "debit": 0,
+        "credit": 3000,
+        "memo": "Accrued administration liability"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-27",
+    "description": "Postage for beneficiary notices",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "53200",
+        "debit": 64.25,
+        "credit": 0,
+        "memo": "Registered mail postage",
+        "reportingCategory": "Administration"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 64.25,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-28",
+    "description": "Credit card debt recorded",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "31100",
+        "debit": 3200,
+        "credit": 0,
+        "memo": "Debt recognized against estate value"
+      },
+      {
+        "accountCode": "21100",
+        "debit": 0,
+        "credit": 3200,
+        "memo": "Credit card debt at death"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-06-29",
+    "description": "Credit card debt paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "21100",
+        "debit": 3200,
+        "credit": 0,
+        "memo": "Credit card debt settled"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 3200,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-01",
+    "description": "Income tax payable recorded",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "31100",
+        "debit": 5200,
+        "credit": 0,
+        "memo": "Tax payable recognized"
+      },
+      {
+        "accountCode": "22200",
+        "debit": 0,
+        "credit": 5200,
+        "memo": "Final return tax payable"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-02",
+    "description": "Income tax paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "22200",
+        "debit": 5200,
+        "credit": 0,
+        "memo": "Tax payable settled"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 5200,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-03",
+    "description": "Probate fee payable recorded",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "31100",
+        "debit": 1800,
+        "credit": 0,
+        "memo": "Probate fee recognized"
+      },
+      {
+        "accountCode": "22300",
+        "debit": 0,
+        "credit": 1800,
+        "memo": "Probate fee payable"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-04",
+    "description": "Probate fee paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "22300",
+        "debit": 1800,
+        "credit": 0,
+        "memo": "Probate fee paid"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 1800,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-05",
+    "description": "July rental income received",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 2500,
+        "credit": 0,
+        "memo": "July rent received"
+      },
+      {
+        "accountCode": "41300",
+        "debit": 0,
+        "credit": 2500,
+        "memo": "Rental income"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-06",
+    "description": "July electricity bill paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51300",
+        "debit": 174.2,
+        "credit": 0,
+        "memo": "Electricity bill",
+        "reportingCategory": "Utilities"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 174.2,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-07",
+    "description": "Investment dividend received",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 720,
+        "credit": 0,
+        "memo": "Dividend received"
+      },
+      {
+        "accountCode": "41200",
+        "debit": 0,
+        "credit": 720,
+        "memo": "Dividend income"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-08",
+    "description": "Property staging deposit",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 1100,
+        "credit": 0,
+        "memo": "Staging deposit",
+        "reportingCategory": "Maintenance",
+        "project": "Property Sale Preparation"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 1100,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-09",
+    "description": "Real estate photography",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "51400",
+        "debit": 375,
+        "credit": 0,
+        "memo": "Listing photography",
+        "reportingCategory": "Maintenance",
+        "project": "Property Sale Preparation"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 375,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-10",
+    "description": "Additional accounting fees paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "52200",
+        "debit": 680,
+        "credit": 0,
+        "memo": "Additional accounting support",
+        "reportingCategory": "Professional Fees"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 680,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-11",
+    "description": "Vehicle sold for cash",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 16000,
+        "credit": 0,
+        "memo": "Vehicle sale proceeds"
+      },
+      {
+        "accountCode": "13100",
+        "debit": 0,
+        "credit": 16000,
+        "memo": "Reduce vehicle asset"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-11",
+    "description": "Loss on vehicle sale recorded",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "32200",
+        "debit": 2000,
+        "credit": 0,
+        "memo": "Loss on vehicle sale"
+      },
+      {
+        "accountCode": "13100",
+        "debit": 0,
+        "credit": 2000,
+        "memo": "Clear remaining vehicle value"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-12",
+    "description": "Term deposit matured into estate chequing",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 10000,
+        "credit": 0,
+        "memo": "Term deposit proceeds"
+      },
+      {
+        "accountCode": "14200",
+        "debit": 0,
+        "credit": 10000,
+        "memo": "Term deposit matured"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-13",
+    "description": "Interest on term deposit",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 310,
+        "credit": 0,
+        "memo": "Term deposit interest"
+      },
+      {
+        "accountCode": "41100",
+        "debit": 0,
+        "credit": 310,
+        "memo": "Interest earned"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-14",
+    "description": "Partial sale of publicly traded securities",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "11100",
+        "debit": 15000,
+        "credit": 0,
+        "memo": "Security sale proceeds"
+      },
+      {
+        "accountCode": "14100",
+        "debit": 0,
+        "credit": 14000,
+        "memo": "Cost basis of securities sold"
+      },
+      {
+        "accountCode": "32100",
+        "debit": 0,
+        "credit": 1000,
+        "memo": "Capital gain on sale"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-15",
+    "description": "Specific bequest paid",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "33100",
+        "debit": 5000,
+        "credit": 0,
+        "memo": "Specific bequest to beneficiary"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 5000,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-16",
+    "description": "Interim beneficiary distribution",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "33200",
+        "debit": 12000,
+        "credit": 0,
+        "memo": "Interim distribution"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 12000,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  },
+  {
+    "entryDate": "2026-07-17",
+    "description": "Second interim beneficiary distribution",
+    "status": "POSTED",
+    "lines": [
+      {
+        "accountCode": "33200",
+        "debit": 8500,
+        "credit": 0,
+        "memo": "Second interim distribution"
+      },
+      {
+        "accountCode": "11100",
+        "debit": 0,
+        "credit": 8500,
+        "memo": "Paid from estate chequing"
+      }
+    ]
+  }
+]

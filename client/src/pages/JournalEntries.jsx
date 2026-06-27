@@ -132,7 +132,8 @@ async function handleSubmit(event) {
     setShowForm(false);
     loadJournalEntries();
   }
-
+    
+  // Table columns for the journal entries table, shoudl display journal entry date, description, Debit account and amount, credit account and amount.
    const columns = [
     {
       header: "Date",
@@ -144,13 +145,46 @@ async function handleSubmit(event) {
       accessor: "description",
     },
     {
-      header: "Status",
-      accessor: "status",
+      header: "Debit Account",
+      accessor: "debitAccount",
+      render: (row) => {
+        const debitLine = row.lines.find((line) => line.debit > 0);
+        return debitLine?.account?.name || "";
+      },
     },
     {
-      header: "Lines",
-      accessor: "lines",
-      render: (row) => row.lines.length,
+      header: "Debit",
+      accessor: "debit",
+      render: (row) => {
+        const debitLine = row.lines.find((line) => line.debit > 0);
+        return debitLine
+          ? `$${Number(debitLine.debit).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}`
+          : "";
+      },
+    },
+    {
+      header: "Credit Account",
+      accessor: "creditAccount",
+      render: (row) => {
+        const creditLine = row.lines.find((line) => line.credit > 0);
+        return creditLine?.account?.name || "";
+      },
+    },
+    {
+      header: "Credit",
+      accessor: "credit",
+      render: (row) => {
+        const creditLine = row.lines.find((line) => line.credit > 0);
+        return creditLine
+          ? `$${Number(creditLine.credit).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}`
+          : "";
+      },
     },
   ];
 

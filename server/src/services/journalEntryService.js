@@ -87,7 +87,10 @@ async function createJournalEntry(data) {
         sourceType: data.sourceType || "MANUAL",
         lines: {
           create: data.lines.map((line) => ({
-            accountCode: line.accountCode,
+            // Should've used accountCode instead of accountId, since the front end is sending accountCode, and we need to find the accountId from the accountCode
+            accountId: accounts.find(
+              (account) => account.code === line.accountCode,
+            ).id,
             debit: Number(line.debit || 0),
             credit: Number(line.credit || 0),
             memo: line.memo || null,
