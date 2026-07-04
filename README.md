@@ -276,6 +276,7 @@ The following features were identified during development and are planned for fu
 
 ## Technical
 
+- Document attachment option/possible OCR
 - Centralized error message constants and shared error handling.
 - Global Express error handling middleware.
 - Enhanced frontend validation and user notifications.
