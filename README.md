@@ -269,6 +269,7 @@ The following features were identified during development and are planned for fu
 ## Accounting
 
 - Account balance snapshots (rollover balances) to improve report performance by reducing full journal history calculations.
+- Audit logs
 - Journal entry reversal.
 - Draft journal entries that remain editable until posted.
 - Separate transaction date from journal entry creation/posting date.

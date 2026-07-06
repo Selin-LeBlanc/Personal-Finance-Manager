@@ -111,8 +111,36 @@ async function createJournalEntry(data) {
 }
 
 //GET
-async function getAllJournalEntries() {
+async function getAllJournalEntries(filters = {}) {
+  // If filters are provided, we will filter the journal entries based on the filters.
+
+  const where = {};
+
+  if (filters.entryDate) {
+    const startOfDay = new Date(filters.entryDate);
+    const endOfDay = new Date(filters.entryDate);
+    endOfDay.setDate(endOfDay.getDate() + 1);
+
+    where.entryDate = {
+      gte: startOfDay,
+      lt: endOfDay,
+    };
+  }
+
+  if (filters.accountCode) {
+    where.lines = {
+      some: {
+        account: {
+          code: filters.accountCode,
+        },
+      },
+    };
+  }
+
+  // should return the latest journal entries if no filters are provided.
+  // if account code is provided, should return the journal enties for that line-account-code
   return prisma.journalEntry.findMany({
+    where,
     orderBy: {
       entryDate: "desc",
     },

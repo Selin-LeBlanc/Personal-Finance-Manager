@@ -20,7 +20,13 @@ async function createJournalEntry(req, res) {
 //GET
 async function getJournalEntries(req, res) {
   try {
-    const journalEntries = await journalEntryService.getAllJournalEntries();
+    const filters = {
+      entryDate: req.query.entryDate,
+      accountCode: req.query.accountCode,
+    };
+
+    const journalEntries =
+      await journalEntryService.getAllJournalEntries(filters);
 
     res.status(200).json({
       success: true,

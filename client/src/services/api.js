@@ -11,9 +11,11 @@ export async function getAccounts() {
 // Get Journal Entries
 // Update: Get Journal Entries with as of date variable, account code variable, or both, if left blank, should return the latest journal entries
 // These two variables will be the search bar filters on the Frond End journal entries page
-export async function getJournalEntries(asOfDate = "", accountCode = "") {
+export async function getJournalEntries(filters = {}) {
+  const entryDate = filters.entryDate || "";
+  const accountCode = filters.accountCode || "";
   const response = await fetch(
-    `${API_BASE_URL}/journal-entries?asOfDate=${asOfDate}&accountCode=${accountCode}`,
+    `${API_BASE_URL}/journal-entries?entryDate=${entryDate}&accountCode=${accountCode}`,
   );
   return response.json();
 }
@@ -34,7 +36,10 @@ export async function createJournalEntry(journalEntry) {
 
 // Get Account Balances with as of date variable, if left blank, should return the latest balances
 // Update: Get Account Balances with account code variable, if left blank, should return the latest balances
-export async function getAccountBalances(asOfDate = "", accountCode = "") {
+// Account balances should include the balances of the account and its sub-accounts, if any
+export async function getAccountBalances(filters = {}) {
+  const asOfDate = filters.asOfDate || "";
+  const accountCode = filters.accountCode || "";
   const response = await fetch(
     `${API_BASE_URL}/account-balances?asOfDate=${asOfDate}&accountCode=${accountCode}`,
   );

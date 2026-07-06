@@ -51,6 +51,7 @@ async function getAccountAndSubAccounts(accountCode) {
 
   return accountAndSubAccountIds;
 }
+// Updated the getAccountBalances function to include a filter for account code and its sub-accounts
 
 async function getAccountBalances(asOfDate = new Date(), filters = {}) {
   const where = {};
@@ -58,7 +59,7 @@ async function getAccountBalances(asOfDate = new Date(), filters = {}) {
   if (filters.type) {
     where.type = filters.type;
   }
-  // Updated the getAccountBalances function to include a filter for account code and its sub-accounts
+
   if (filters.code) {
     const accountAndSubAccountIds = await getAccountAndSubAccounts(
       filters.code,

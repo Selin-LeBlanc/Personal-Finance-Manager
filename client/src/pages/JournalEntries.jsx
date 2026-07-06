@@ -21,10 +21,11 @@ function JournalEntries() {
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Form data will include the following fields: date, description, account code, debit amount, credit amount
+  // Form data will include the following fields: date, account code, debit amount, credit amount
+
+  // This needs to be updated to include multiple lines, so we will have an array of lines, each line will have an account code, debit amount, credit amount, and memo. 
   const [formData, setFormData] = useState({
     entryDate: "",
-    description: "",
     lines: [
       { accountCode: "", debit: "", credit: "", memo: "" },
       { accountCode: "", debit: "", credit: "", memo: "" },
@@ -64,7 +65,7 @@ function JournalEntries() {
   function handleSearch(event) {
     event.preventDefault();
     loadJournalEntries({
-      asOfDate: entryDateFilter, 
+      entryDate: entryDateFilter, 
       accountCode: accountCodeFilter,
     });
   }
@@ -83,8 +84,9 @@ function JournalEntries() {
     }));
   }
   // This is spooky, copilot can guess correctly what I'm goint to handle next. 
-  function handleLineChange(index, event) {
-    const { name, value } = event.target;
+  function handleLineChange(index, fieldOrEvent, fieldValue) {
+    const name = typeof fieldOrEvent === "string" ? fieldOrEvent : fieldOrEvent.target.name;
+    const value = typeof fieldOrEvent === "string" ? fieldValue : fieldOrEvent.target.value;
     setFormData((prevData) => {
       const newLines = [...prevData.lines];
       newLines[index][name] = value;
@@ -101,7 +103,7 @@ function JournalEntries() {
 async function handleSubmit(event) {
     event.preventDefault();
     const payload = {
-      entryDate: formData.entryDate,
+      asOfDate: formData.entryDate,
       description: formData.description,
       status: "POSTED", // Right now I'm only using POSTED status, but in the future, we can add a DRAFT status and a way to change the status of a journal entry
       lines: formData.lines.map((line) => ({
@@ -121,7 +123,7 @@ async function handleSubmit(event) {
     }
 
     setFormData({
-      entryDate: "",
+      asOfDate: "",
       description: "",
       lines: [
         { accountCode: "", debit: "", credit: "", memo: "" },
@@ -194,7 +196,7 @@ async function handleSubmit(event) {
     <>
       <PageHeader
         title="Journal Entries"
-        subtitle="Create and review double-entry journal entries."
+        subtitle="Create and review journal entries."
       />
 
       <Card>
@@ -256,9 +258,9 @@ async function handleSubmit(event) {
 
                 <label>
                   Debit
+                  
                   <input
-                    type="number"
-                    step="0.01"
+                    type="text"
                     value={line.debit}
                     onChange={(event) =>
                       handleLineChange(index, "debit", event.target.value)
@@ -269,8 +271,8 @@ async function handleSubmit(event) {
                 <label>
                   Credit
                   <input
-                    type="number"
-                    step="0.01"
+                    type="text"
+
                     value={line.credit}
                     onChange={(event) =>
                       handleLineChange(index, "credit", event.target.value)
