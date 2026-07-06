@@ -117,9 +117,10 @@ async function getAllJournalEntries(filters = {}) {
   const where = {};
 
   if (filters.entryDate) {
-    const startOfDay = new Date(filters.entryDate);
-    const endOfDay = new Date(filters.entryDate);
-    endOfDay.setDate(endOfDay.getDate() + 1);
+    const [year, month, day] = filters.entryDate.split("-").map(Number);
+
+    const startOfDay = new Date(year, month - 1, day);
+    const endOfDay = new Date(year, month - 1, day + 1);
 
     where.entryDate = {
       gte: startOfDay,
