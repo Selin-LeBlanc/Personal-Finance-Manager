@@ -24,6 +24,42 @@ function calculateAccountBalance(account) {
   };
 }
 
+// Helper function to calculate the total debit, total credit for the sub accounts and to add it to the parent account.
+
+function addChildBalances(accounts) {
+  const accountsById = {};
+
+  accounts.forEach((account) => {
+    accountsById[account.id] = { ...account };
+  });
+
+  accounts.forEach((account) => {
+    let parentAccountId = account.parentAccountId;
+
+    while (parentAccountId) {
+      const parentAccount = accountsById[parentAccountId];
+
+      if (!parentAccount) {
+        break;
+      }
+
+      parentAccount.totalDebits += account.totalDebits;
+      parentAccount.totalCredits += account.totalCredits;
+
+      parentAccount.balance =
+        parentAccount.normalBalance === "DEBIT"
+          ? parentAccount.totalDebits - parentAccount.totalCredits
+          : parentAccount.totalCredits - parentAccount.totalDebits;
+
+      parentAccountId = parentAccount.parentAccountId;
+    }
+  });
+
+  return Object.values(accountsById).sort((a, b) =>
+    a.code.localeCompare(b.code),
+  );
+}
+
 async function getAccounts() {
   const accounts = await prisma.account.findMany({
     orderBy: {
@@ -39,22 +75,26 @@ async function getAccounts() {
     },
   });
 
-  return accounts.map((account) => {
+  const accountsWithOwnBalances = accounts.map((account) => {
     const { totalDebits, totalCredits, balance } =
       calculateAccountBalance(account);
+
     return {
       id: account.id,
       code: account.code,
       name: account.name,
       type: account.type,
-      subAccounts: account.subAccounts,
+      subtype: account.subtype,
       normalBalance: account.normalBalance,
       parentAccountId: account.parentAccountId,
-      totalDebit: totalDebits,
-      totalCredit: totalCredits,
+      isActive: account.isActive,
+      totalDebits: totalDebits,
+      totalCredits: totalCredits,
       balance: balance,
     };
   });
+
+  return addChildBalances(accountsWithOwnBalances);
 }
 
 module.exports = {

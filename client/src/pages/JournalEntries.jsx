@@ -10,7 +10,12 @@ import {
   createJournalEntry,
 } from "../services/api";
 
-
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD",
+  }).format(Number(amount || 0));
+}
 function JournalEntries() {
   const [journalEntries, setJournalEntries] = useState([]);
   const [accounts, setAccounts] = useState([]);
@@ -134,8 +139,23 @@ async function handleSubmit(event) {
     setShowForm(false);
     loadJournalEntries();
   }
+
+
     
   // Table columns for the journal entries table, shoudl display journal entry date, description, Debit account and amount, credit account and amount.
+
+    const journalEntryRows = journalEntries.flatMap((entry) =>
+    entry.lines.map((line) => ({
+      id: line.id,
+      entryDate: entry.entryDate,
+      description: entry.description,
+      accountCode: line.account.code,
+      accountName: line.account.name,
+      debit: line.debit,
+      credit: line.credit,
+    }))
+  );
+
    const columns = [
     {
       header: "Date",
@@ -143,50 +163,28 @@ async function handleSubmit(event) {
       render: (row) => new Date(row.entryDate).toLocaleDateString(),
     },
     {
-      header: "Description",
-      accessor: "description",
+      header: "Account Code",
+      accessor: "accountCode",
     },
     {
-      header: "Debit Account",
-      accessor: "debitAccount",
-      render: (row) => {
-        const debitLine = row.lines.find((line) => line.debit > 0);
-        return debitLine?.account?.name || "";
-      },
+      header: "Account Name",
+      accessor: "accountName",
     },
     {
       header: "Debit",
       accessor: "debit",
-      render: (row) => {
-        const debitLine = row.lines.find((line) => line.debit > 0);
-        return debitLine
-          ? `$${Number(debitLine.debit).toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}`
-          : "";
-      },
-    },
-    {
-      header: "Credit Account",
-      accessor: "creditAccount",
-      render: (row) => {
-        const creditLine = row.lines.find((line) => line.credit > 0);
-        return creditLine?.account?.name || "";
-      },
+      render: (row) => {return formatCurrency(row.debit) },
     },
     {
       header: "Credit",
       accessor: "credit",
       render: (row) => {
-        const creditLine = row.lines.find((line) => line.credit > 0);
-        return creditLine
-          ? `$${Number(creditLine.credit).toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}`
-          : "";
+        return formatCurrency(row.credit);
       },
+    },
+    {
+      header: "Description",
+      accessor: "description",
     },
   ];
 
@@ -338,7 +336,7 @@ async function handleSubmit(event) {
       </Card>
 
       <Card title="Journal Entries">
-        <Table columns={columns} data={journalEntries} />
+        <Table columns={columns} data={journalEntryRows} />
       </Card>
     </>
   );

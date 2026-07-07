@@ -12,7 +12,7 @@ function Dashboard() {
 
       <div className="card-grid">
         <Card title="Accounts">
-          <p>View and manage the Chart of Accounts.</p>
+          <p>View the Chart of Accounts.</p>
         </Card>
 
         <Card title="Journal Entries">

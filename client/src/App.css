@@ -79,6 +79,55 @@ body {
   margin-bottom: 16px;
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border: 1px solid #d9e2df;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th {
+  background: #f3f7f5;
+  color: #123c35;
+  text-align: left;
+  font-weight: 700;
+  padding: 12px 14px;
+  border-bottom: 1px solid #d9e2df;
+}
+
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #edf2f0;
+  vertical-align: top;
+  text-align: left;
+}
+
+tr:hover {
+  background: #f8fbfa;
+}
+
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(6),
+th:nth-child(4),
+th:nth-child(5),
+th:nth-child(6) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.empty-state {
+  padding: 16px;
+  color: #64748b;
+}
+
 .journal-line-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr;

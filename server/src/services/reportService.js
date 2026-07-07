@@ -6,19 +6,19 @@ const prisma = require("../prismaClient");
 // this function will be a simple sum of debit/credit, I'm not implementing a roll over balance calculation for now, but it can be added later if needed.
 
 function calculateBalance(account) {
-  const totalDebit = account.journalLines.reduce((sum, line) => {
+  const totalDebits = account.journalLines.reduce((sum, line) => {
     return sum + Number(line.debit);
   }, 0);
 
-  const totalCredit = account.journalLines.reduce((sum, line) => {
+  const totalCredits = account.journalLines.reduce((sum, line) => {
     return sum + Number(line.credit);
   }, 0);
 
   if (account.normalBalance === "DEBIT") {
-    return totalDebit - totalCredit;
+    return totalDebits - totalCredits;
   }
 
-  return totalCredit - totalDebit;
+  return totalCredits - totalDebits;
 }
 
 // Helper function to get sub-accounts of a given parentaccount

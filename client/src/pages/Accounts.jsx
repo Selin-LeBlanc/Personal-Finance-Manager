@@ -34,10 +34,10 @@ function Accounts() {
   // Currency needs a formatCurrency helper
   const columns = [
     { header: "Code", accessor: "code" },
-    { header: "Account Name", accessor: "name" },
-    { header: "Account Type", accessor: "type" },
-    { header: "Debit", accessor: "totalDebit", render: (row) => formatCurrency(row.totalDebit) },
-    { header: "Credit", accessor: "totalCredit", render: (row) => formatCurrency(row.totalCredit) },
+    { header: "Account Name", accessor: "name"},
+
+    { header: "Debit", accessor: "totalDebits", render: (row) => formatCurrency(row.totalDebits) },
+    { header: "Credit", accessor: "totalCredits", render: (row) => formatCurrency(row.totalCredits) },
     { header: "Balance", accessor: "balance", render: (row) => formatCurrency(row.balance) },
   ];
 
@@ -45,9 +45,16 @@ function Accounts() {
     <>
       <PageHeader
         title="Chart of Accounts"
-        subtitle="Manage estate accounts."
+        subtitle="Chart of Accounts Balances"
       />
-      <Table columns={columns} data={accounts} />
+      <Table 
+      columns={columns} 
+      data={accounts}   
+      getRowProps={(row) => ({
+        fontWeight: row.parentAccountId ? "normal" : "700",
+        textDecoration: row.parentAccountId ? "none" : "underline",
+        textIndent: row.parentAccountId ? "20px" : "0px",
+      })} />
     </>
   );
 }

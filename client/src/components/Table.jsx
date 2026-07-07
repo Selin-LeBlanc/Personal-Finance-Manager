@@ -1,6 +1,6 @@
 // Created a one reusable table component that can be used for both accounts and journal entries for now, I will come back to this later and make it more reusable for other financial statements like balance sheet and income statement. I will also add pagination and sorting later on. For now, I will just display the data in a table format.
 
-function Table({ columns, data }) {
+function Table({ columns, data, getRowProps }) {
   if (!data || data.length === 0) {
     return <p className="empty-state">No records found.</p>;
   }
@@ -18,7 +18,7 @@ function Table({ columns, data }) {
 
         <tbody>
           {data.map((row, index) => (
-            <tr key={row.id || index}>
+            <tr key={row.id || index} style={getRowProps ? getRowProps(row) : {}}>
               {columns.map((column) => (
                 <td key={column.accessor}>
                   {column.render ? column.render(row) : row[column.accessor]}
