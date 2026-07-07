@@ -107,8 +107,9 @@ function JournalEntries() {
   }
 async function handleSubmit(event) {
     event.preventDefault();
+    setMessage("");
     const payload = {
-      asOfDate: formData.entryDate,
+      entryDate: formData.entryDate,
       description: formData.description,
       status: "POSTED", // Right now I'm only using POSTED status, but in the future, we can add a DRAFT status and a way to change the status of a journal entry
       lines: formData.lines.map((line) => ({
@@ -119,22 +120,21 @@ async function handleSubmit(event) {
       })),
     }
     const response = await createJournalEntry(payload);
-    if (response.success) {
-      setMessage("Journal entry created successfully");
-      setShowForm(false);
-      loadJournalEntries();
-    } else {
-      setMessage("Failed to create journal entry");
-    }
+  if (!response.success) {
+    setMessage(response.message || "Failed to create journal entry");
+    return;
+  }
 
-    setFormData({
-      asOfDate: "",
-      description: "",
-      lines: [
-        { accountCode: "", debit: "", credit: "", memo: "" },
-        { accountCode: "", debit: "", credit: "", memo: "" },
-      ],
-    });
+  setMessage("Journal entry created successfully.");
+
+  setFormData({
+    entryDate: "",
+    description: "",
+    lines: [
+      { accountCode: "", debit: "", credit: "", memo: "" },
+      { accountCode: "", debit: "", credit: "", memo: "" },
+    ],
+  });
 
     setShowForm(false);
     loadJournalEntries();
